@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+.env
+
+# Node
+node_modules/
+dist/
+
+# Docker
+*.log
+
+# Data volumes (NO versionar datos)
+infra/postgres/data/
+infra/mongo/data/
+infra/minio/data/
+infra/elastic/data/
+
+# IDE
+.vscode/
+.idea/

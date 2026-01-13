@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Colaboradores</title>
+</head>
+<body>
+
+<h1>Listado de Colaboradores</h1>
+
+<ul>
+    {% for c in colaboradores %}
+        <li>
+            {{ c.cedula }} — {{ c.nombres }} {{ c.apellidos }}
+        </li>
+    {% empty %}
+        <li>No hay colaboradores registrados</li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>
