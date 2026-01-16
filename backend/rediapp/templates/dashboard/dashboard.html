@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard – Red Nacional de Información</title>
+
+    {% load static %}
+
+    <!-- CSS Dashboard -->
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <header class="header">
+        <h1>Dashboard – Red Nacional de Información</h1>
+    </header>
+
+    <main class="container">
+
+        <!-- ========================= -->
+        <!-- Fila 1: KPIs Ejecutivos   -->
+        <!-- ========================= -->
+
+        <section>
+            <h2>Métricas generales</h2>
+
+            <div class="kpi-container">
+
+                <div class="kpi-card">
+                    <span class="kpi-title">Total de colaboradores</span>
+                    <span class="kpi-value">{{ total_colaboradores }}</span>
+                </div>
+
+                <div class="kpi-card">
+                    <span class="kpi-title">Colaboradores activos</span>
+                    <span class="kpi-value">{{ colaboradores_activos }}</span>
+                </div>
+
+                <div class="kpi-card">
+                    <span class="kpi-title">Total de contratos</span>
+                    <span class="kpi-value">{{ total_contratos }}</span>
+                </div>
+
+                <div class="kpi-card">
+                    <span class="kpi-title">Valor total contratado</span>
+                    <span class="kpi-value">
+                        $ {{ valor_total_contratado|floatformat:0 }}
+                    </span>
+                </div>
+
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- ========================= -->
+        <!-- Gráfica básica KPIs       -->
+        <!-- ========================= -->
+
+        <section>
+            <h2>Resumen gráfico</h2>
+
+            <div class="chart-container">
+                <canvas
+                    id="kpiChart"
+                    data-total-colaboradores="{{ total_colaboradores }}"
+                    data-colaboradores-activos="{{ colaboradores_activos }}"
+                    data-total-contratos="{{ total_contratos }}"
+                ></canvas>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- ====================================== -->
+        <!-- Fila 2: Distribución por equipo        -->
+        <!-- ====================================== -->
+
+        <section>
+            <h2>Distribución de colaboradores por equipo</h2>
+
+            <div class="chart-container">
+                <canvas
+                    id="equipoChart"
+                    data-labels='{{ equipos_labels }}'
+                    data-values='{{ equipos_data }}'
+                ></canvas>
+            </div>
+        </section>
+
+        <hr>
+
+        <!-- ====================================== -->
+        <!-- Fila 3: Carga operativa (Top 10)       -->
+        <!-- ====================================== -->
+
+        <section>
+            <h2>Carga operativa – Top 10 colaboradores</h2>
+
+            <div class="chart-container">
+                <canvas
+                    id="actividadChart"
+                    data-labels='{{ actividades_labels }}'
+                    data-values='{{ actividades_data }}'
+                ></canvas>
+            </div>
+        </section>
+
+
+        <div class="back-link">
+            <a href="/">← Volver al inicio</a>
+        </div>
+
+    </main>
+
+    <!-- JS Dashboard -->
+    <script src="{% static 'js/dashboard.js' %}"></script>
+
+</body>
+</html>
