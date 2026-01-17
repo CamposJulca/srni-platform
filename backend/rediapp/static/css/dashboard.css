@@ -1,0 +1,83 @@
+/* ========================= */
+/* Estilos generales         */
+/* ========================= */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    background-color: #f6f7f9;
+    color: #222;
+}
+
+.header {
+    background-color: #ffffff;
+    padding: 20px 30px;
+    border-bottom: 1px solid #ddd;
+}
+
+.container {
+    padding: 25px 30px;
+}
+
+h1 {
+    margin: 0;
+}
+
+h2 {
+    margin-bottom: 15px;
+}
+
+/* ========================= */
+/* KPIs                      */
+/* ========================= */
+
+.kpi-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.kpi-card {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 18px 20px;
+    width: 240px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.kpi-title {
+    display: block;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.kpi-value {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* ========================= */
+/* Gráficas                  */
+/* ========================= */
+
+.chart-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    max-width: 700px;
+}
+
+/* ========================= */
+/* Otros                     */
+/* ========================= */
+
+hr {
+    margin: 35px 0;
+}
+
+.back-link {
+    margin-top: 30px;
+}
