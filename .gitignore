@@ -19,3 +19,4 @@ infra/elastic/data/
 # IDE
 .vscode/
 .idea/
+*.sql
