@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Colaboradores – RNI</title>
+</head>
+<body>
+  <h1>Colaboradores</h1>
+
+  {% if colaboradores %}
+    <ul>
+      {% for c in colaboradores %}
+        <li>{{ c.cedula }} — {{ c.nombres }} {{ c.apellidos }} ({{ c.estado }})</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No hay colaboradores para mostrar.</p>
+  {% endif %}
+
+  <br>
+  <a href="/">← Volver al inicio</a>
+</body>
+</html>

@@ -1,0 +1,59 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %}Inicio – RNI{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="home-container">
+
+  <div class="home-header">
+    <h1>Bienvenido a la Red Nacional de Información</h1>
+    <p>Usuario autenticado correctamente.</p>
+  </div>
+
+  <div class="cards-grid">
+
+    <!-- Query SQL -->
+    <div class="card">
+      <h3>Query SQL</h3>
+      <p>Consulta controlada de información en PostgreSQL.</p>
+      <a href="{% url 'analytics:sql_query' %}">Ingresar</a>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="card">
+      <h3>Dashboard</h3>
+      <p>Indicadores y métricas generales del sistema.</p>
+      <a href="{% url 'dashboard:home' %}">Ver dashboard</a>
+    </div>
+
+    <!-- Colaboradores -->
+    <div class="card">
+      <h3>Colaboradores</h3>
+      <p>Gestión y visualización de colaboradores.</p>
+      <a href="{% url 'colaboradores:list' %}">Abrir</a>
+    </div>
+
+    <!-- Automatización Documental -->
+    <div class="card">
+      <h3>Automatización Documental</h3>
+      <p>
+        Firma masiva de documentos Word, generación de PDFs y descarga en bloque.
+      </p>
+      <a href="{% url 'automatizacion:documentos' %}">
+        Abrir módulo
+      </a>
+    </div>
+
+  </div>
+
+  <div class="logout">
+    <a href="/admin/logout/">Cerrar sesión</a>
+  </div>
+
+</div>
+{% endblock %}

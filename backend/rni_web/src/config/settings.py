@@ -28,10 +28,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-   'corsheaders',  
-    'core',
+
+    'corsheaders',
     'rest_framework',
 
+    # core (ya estaba)
+    'core',
+
+    # legacy apps (migradas)
+    'apps.accounts.apps.AccountsConfig',
+    'apps.analytics.apps.AnalyticsConfig',
+    'apps.dashboard.apps.DashboardConfig',
+    'apps.colaboradores.apps.ColaboradoresConfig',
+    'apps.automatizacion_documental.apps.AutomatizacionDocumentalConfig',
+    'apps.nlquery.apps.NlqueryConfig',
 ]
 
 # ============================
@@ -50,8 +60,9 @@ MIDDLEWARE = [
 '''
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # ← PRIMERO
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -69,7 +80,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -115,10 +126,30 @@ TIME_ZONE = 'America/Bogota'
 USE_I18N = True
 USE_TZ = True
 
+# ============|
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/login/'
+
 # ============================
 # STATIC
 # ============================
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+# ============================
+# MEDIA
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+# ============================
+# DEFAULT AUTO FIELD
+
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
