@@ -31,6 +31,8 @@ INSTALLED_APPS = [
    'corsheaders',  
     'core',
     'rest_framework',
+    'sinapsis',
+    'projects',
 
 ]
 
