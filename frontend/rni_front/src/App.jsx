@@ -1,6 +1,7 @@
-import Colaboradores from "./pages/Colaboradores";
+import SinapsisDashboard from "./pages/SinapsisDashboard";
 
-export default function App() {
-  return <Colaboradores />;
+function App() {
+  return <SinapsisDashboard />;
 }
 
+export default App;

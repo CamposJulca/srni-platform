@@ -7,6 +7,21 @@ from .loaders import load_json_snapshot
 from .schemas import SinapsisProjectSchema
 from .repositories import SinapsisSnapshotRepository
 
+from typing import List, Dict
+from .repositories import SinapsisSnapshotRepository
+
+
+class SinapsisProjectService:
+    """
+    Capa de aplicación para exponer vistas de proyectos Sinapsis.
+    """
+
+    def __init__(self, repository: SinapsisSnapshotRepository):
+        self.repository = repository
+
+    def list_projects(self) -> List[Dict]:
+        return self.repository.list_project_summaries()
+
 
 class SinapsisSnapshotService:
     """
