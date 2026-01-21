@@ -1,48 +1,62 @@
 # SRNI Platform
 
-Plataforma institucional para **gestión de información contractual y documental**, basada en una arquitectura moderna, desacoplada y reproducible mediante contenedores Docker.
+Plataforma institucional para la **gestión de información contractual, documental y analítica**, basada en una arquitectura moderna, desacoplada y reproducible mediante contenedores Docker.
+
+El sistema está diseñado para soportar procesos internos de la **Red Nacional de Información (RNI)**, con énfasis en trazabilidad, control documental, interoperabilidad y analítica.
 
 ---
 
 ## 🎯 Objetivo
 
-Centralizar la información de **colaboradores, contratos y documentos**, reemplazando procesos manuales basados en archivos dispersos (Excel), y habilitando:
+Centralizar la información de **colaboradores, contratos, documentos y proyectos tecnológicos**, reemplazando procesos manuales basados en archivos dispersos (Excel), y habilitando:
 
-* trazabilidad,
-* control documental,
-* búsqueda avanzada,
-* base sólida para automatización y analítica.
+- Trazabilidad institucional
+- Control documental y versionado
+- Búsqueda avanzada e indexación
+- Base sólida para automatización, analítica y dashboards
 
 ---
 
 ## 🧱 Arquitectura general
 
-La plataforma está organizada por **capas claramente separadas**:
+La plataforma se organiza por **capas claramente separadas**, siguiendo principios de arquitectura limpia y desacoplamiento:
 
 ```text
 infra/      → Stack de datos (PostgreSQL, MongoDB, MinIO, Elasticsearch, Kibana)
 backend/    → API institucional (Django + Django REST Framework)
 frontend/   → Aplicación web (React + Vite)
-scripts/    → Inicialización reproducible (Mongo, MinIO, Elasticsearch)
+scripts/    → Inicialización reproducible de servicios
 compose/    → Orquestación completa del sistema
-docs/       → Informes técnicos y diagramas
-```
+docs/       → Documentación técnica y arquitectónica
+````
 
-Todo el sistema es **Docker-first**, portable a servidor, CI/CD o Kubernetes.
+Todo el sistema es **Docker-first**, portable a servidores locales, CI/CD o entornos orquestados (Kubernetes).
 
 ---
 
 ## ⚙️ Componentes principales
 
-| Componente    | Rol                                            |
-| ------------- | ---------------------------------------------- |
-| PostgreSQL    | Datos estructurados (colaboradores, contratos) |
-| MongoDB       | Metadatos documentales y relaciones flexibles  |
-| MinIO         | Almacenamiento de documentos (object storage)  |
-| Elasticsearch | Indexación y búsqueda                          |
-| Kibana        | Exploración analítica                          |
-| Django REST   | Exposición de API institucional                |
-| React         | Interfaz web institucional                     |
+| Componente    | Rol principal                                       |
+| ------------- | --------------------------------------------------- |
+| PostgreSQL    | Datos estructurados (contratos, personas, procesos) |
+| MongoDB       | Metadatos flexibles y snapshots                     |
+| MinIO         | Almacenamiento documental (object storage)          |
+| Elasticsearch | Indexación y búsqueda                               |
+| Kibana        | Exploración analítica                               |
+| Django REST   | API institucional                                   |
+| React + Vite  | Interfaz web institucional                          |
+
+---
+
+## 🧩 Módulos destacados
+
+### 📊 Módulo SINAPSIS
+
+Dashboard analítico para la visualización del **portafolio de proyectos tecnológicos**, integrando información externa y normalizada.
+
+📄 Documentación técnica detallada:
+
+* [`docs/sinapsis/dashboard_sinapsis.md`](docs/sinapsis/dashboard_sinapsis.md)
 
 ---
 
@@ -100,13 +114,11 @@ Levanta **infraestructura + backend + frontend** en una sola ejecución.
 
 ## 🧪 Validación básica
 
-### API (terminal)
+### API
 
 ```bash
 curl http://localhost:8000/api/colaboradores/
 ```
-
----
 
 ### MongoDB
 
@@ -116,17 +128,11 @@ use gestion_documental
 show collections
 ```
 
----
-
 ### MinIO
-
-Consola web:
 
 ```
 http://localhost:9001
 ```
-
----
 
 ### Kibana
 
@@ -144,23 +150,19 @@ Los datos se almacenan en **volúmenes externos a Git**:
 infra/*/data/
 ```
 
-Esto garantiza:
-
-* seguridad,
-* durabilidad,
-* limpieza del repositorio.
+Esto garantiza seguridad, durabilidad y limpieza del repositorio.
 
 ---
 
 ## 📜 Scripts de inicialización
 
-Los scripts en `scripts/` permiten crear la infraestructura **sin pasos manuales**:
+El directorio `scripts/` contiene rutinas reproducibles para:
 
-* MongoDB: colecciones e índices
-* MinIO: buckets, versionado y lifecycle
-* Elasticsearch: índices y mappings
+* Inicialización de MongoDB (colecciones, índices)
+* Configuración de buckets y versionado en MinIO
+* Creación de índices en Elasticsearch
 
-Esto habilita trazabilidad, auditoría y despliegue automatizado.
+Estos scripts eliminan pasos manuales y habilitan despliegue automatizado.
 
 ---
 
@@ -169,17 +171,17 @@ Esto habilita trazabilidad, auditoría y despliegue automatizado.
 * ✅ Infraestructura operativa
 * ✅ API funcional
 * ✅ Frontend conectado
-* ✅ Normalización en MongoDB
-* 🚧 Indexación avanzada y dashboards (en progreso)
+* ✅ Integración SINAPSIS
+* 🚧 Indexación avanzada y autenticación (en progreso)
 
 ---
 
 ## 📌 Próximos pasos
 
-* Indexación documental avanzada en Elasticsearch
-* Dashboards institucionales
+* Dashboards analíticos avanzados
 * Autenticación y control de acceso
 * Preparación para CI/CD y Kubernetes
+* Documentación académica y técnica extendida
 
 ---
 
@@ -187,5 +189,3 @@ Esto habilita trazabilidad, auditoría y despliegue automatizado.
 
 **Daniel Campos**
 Arquitectura de datos · Backend · Automatización
-
----
