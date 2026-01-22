@@ -20,3 +20,6 @@ infra/elastic/data/
 .vscode/
 .idea/
 *.sql
+
+# Vite cache
+frontend/rni_front/.vite/
