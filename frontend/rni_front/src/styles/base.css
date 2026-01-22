@@ -1,0 +1,15 @@
+:root {
+  --azul-primario: #003a8f;
+  --rojo-institucional: #c62828;
+  --fondo: #f5f7fb;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--fondo);
+}

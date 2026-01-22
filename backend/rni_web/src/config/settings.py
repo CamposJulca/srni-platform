@@ -2,101 +2,67 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
-# ============================
-# BASE
-# ============================
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-# ============================
-# ENV
-# ============================
 load_dotenv()
 
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "unsafe-secret")
-
 DEBUG = os.getenv("DJANGO_DEBUG") == "1"
-
 ALLOWED_HOSTS = ["*"]
 
-# ============================
-# APPS
-# ============================
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
 
-    'corsheaders',
-    'rest_framework',
+    "corsheaders",
+    "rest_framework",
 
-    # core (ya estaba)
-    'core',
+    "core",
 
-    # legacy apps (migradas)
-    'apps.accounts.apps.AccountsConfig',
-    'apps.analytics.apps.AnalyticsConfig',
-    'apps.dashboard.apps.DashboardConfig',
-    'apps.colaboradores.apps.ColaboradoresConfig',
-    'apps.automatizacion_documental.apps.AutomatizacionDocumentalConfig',
-    'apps.nlquery.apps.NlqueryConfig',
+    "apps.accounts.apps.AccountsConfig",
+    "apps.analytics.apps.AnalyticsConfig",
+    "apps.dashboard.apps.DashboardConfig",
+    "apps.colaboradores.apps.ColaboradoresConfig",
+    "apps.automatizacion_documental.apps.AutomatizacionDocumentalConfig",
+    "apps.nlquery.apps.NlqueryConfig",
 ]
-
-# ============================
-# MIDDLEWARE
-# ============================
-'''
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
-'''
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",  # ✅ primero
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-
-# ============================
-# URLS / WSGI
-# ============================
-ROOT_URLCONF = 'config.urls'
+ROOT_URLCONF = "config.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [BASE_DIR / "templates"],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'config.wsgi.application'
+WSGI_APPLICATION = "config.wsgi.application"
 
-# ============================
-# DATABASE (PostgreSQL)
-# ============================
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -108,9 +74,6 @@ DATABASES = {
     }
 }
 
-# ============================
-# PASSWORDS
-# ============================
 AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
@@ -118,49 +81,36 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
 ]
 
-# ============================
-# I18N
-# ============================
-LANGUAGE_CODE = 'es-co'
-TIME_ZONE = 'America/Bogota'
+LANGUAGE_CODE = "es-co"
+TIME_ZONE = "America/Bogota"
 USE_I18N = True
 USE_TZ = True
 
-# ============|
-LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/login/'
+LOGIN_URL = "/login/"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/login/"
 
-# ============================
-# STATIC
-# ============================
-STATIC_URL = '/static/'
-
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
-
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-# ============================
-# MEDIA
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
-# ============================
-# DEFAULT AUTO FIELD
 
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# ==========================
+# ✅ CORS / CSRF PARA REACT
+# ==========================
+CORS_ALLOW_CREDENTIALS = True
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-'''
-# settings.py
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:8000",
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
 ]
-'''
 
-CORS_ALLOW_ALL_ORIGINS = True
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:5173",
+]
 
 CORS_ALLOW_HEADERS = [
     "accept",
@@ -171,9 +121,8 @@ CORS_ALLOW_HEADERS = [
     "x-requested-with",
 ]
 
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:5173",
-    "http://localhost:5174",
-    "http://localhost:8000",
-]
-
+# ✅ Dev local cross-origin (Vite -> Django)
+SESSION_COOKIE_SAMESITE = "Lax"
+CSRF_COOKIE_SAMESITE = "Lax"
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False

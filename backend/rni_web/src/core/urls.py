@@ -7,4 +7,5 @@ router.register(r"colaboradores", ColaboradorViewSet, basename="colaborador")
 
 urlpatterns = [
     path("api/", include(router.urls)),
+    path("", include("apps.accounts.urls_api")),
 ]
