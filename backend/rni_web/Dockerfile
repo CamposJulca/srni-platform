@@ -1,6 +1,6 @@
 FROM python:3.12-slim
 
-# Evita archivos .pyc y buffer
+# Evita pyc y buffering
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
@@ -14,11 +14,6 @@ RUN apt-get update && apt-get install -y \
     postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
-
-# Crear entorno virtual
-RUN python -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
-
 # Copiar requirements
 COPY requirements.txt .
 
@@ -28,9 +23,8 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 # Copiar código
 COPY src/ /app/
 
-# Puerto Django
+# Exponer puerto Django
 EXPOSE 8000
 
-# Comando por defecto
+# Modo desarrollo (correcto por ahora)
 CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-
