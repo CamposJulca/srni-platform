@@ -20,3 +20,4 @@ infra/elastic/data/
 .vscode/
 .idea/
 *.sql
+.venv/
