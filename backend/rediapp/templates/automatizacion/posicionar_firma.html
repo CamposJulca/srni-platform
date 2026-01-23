@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Seleccionar posición de firma</title>
+
+    {% load static %}
+    <link rel="stylesheet"
+          href="{% static 'css/posicionar_firma.css' %}">
+</head>
+
+<body>
+
+<header class="header">
+    <h1>Seleccionar posición de la firma</h1>
+    <p>Arrastra y ajusta la firma exactamente donde debe ir</p>
+</header>
+
+<main class="container">
+
+    <!-- PDF -->
+    <div id="pdf-container">
+        <canvas id="pdf-canvas"></canvas>
+
+        <div id="firma">
+            <img src="/media/automatizacion/preview/firma.png" alt="Firma">
+        </div>
+    </div>
+
+    <!-- Controles -->
+    <aside class="controls">
+        <p><strong>Instrucciones:</strong></p>
+        <ol>
+            <li>Arrastra la firma</li>
+            <li>Ajusta su tamaño</li>
+            <li>Guarda la posición</li>
+        </ol>
+
+        <button id="guardarBtn">Guardar posición</button>
+
+        <!-- 👇 NUEVO -->
+        <button id="continuarBtn" disabled>
+            Continuar
+        </button>
+
+        <button id="cancelarBtn" class="secondary">
+            Cancelar
+        </button>
+
+        <pre id="output"></pre>
+    </aside>
+
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="{% static 'js/posicionar_firma.js' %}"></script>
+
+</body>
+</html>

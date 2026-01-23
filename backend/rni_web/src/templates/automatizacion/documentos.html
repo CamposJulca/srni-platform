@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Automatización Documental – RNI</title>
+
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'css/automatizacion.css' %}">
+</head>
+<body>
+
+<header class="header">
+    <h1>Automatización Documental</h1>
+    <p>Firma y generación masiva de documentos en PDF</p>
+</header>
+
+<main class="container-grid">
+
+    <!-- ========================= -->
+    <!-- Columna izquierda: Pasos -->
+    <!-- ========================= -->
+    <div class="steps-column">
+
+        <!-- Paso 1 -->
+        <section class="step">
+            <h2>1. Cargar documentos y firma</h2>
+
+            <label>
+                ZIP con documentos (.zip):
+                <input type="file" id="zipFile" accept=".zip">
+            </label>
+
+            <br><br>
+
+            <label>
+                Firma digital (PNG):
+                <input type="file" id="firmaFile" accept="image/png">
+            </label>
+
+            <p class="note">⚠️ La firma debe ser un archivo PNG</p>
+
+            <button id="uploadZipBtn">Cargar ZIP</button>
+            <p class="status" id="status-upload">Pendiente</p>
+        </section>
+
+        <!-- Paso 2 -->
+        <section class="step">
+            <h2>2. Preparar documentos</h2>
+            <p class="note">
+                Se validan los documentos y se deja lista la sesión de trabajo.
+            </p>
+
+            <button id="signBtn" disabled>Preparar documentos</button>
+
+            <!-- NUEVO -->
+            <button id="posicionarFirmaBtn" disabled>
+                Seleccionar posición de firma
+            </button>
+
+            <p class="status" id="signStatus">Pendiente</p>
+        </section>
+
+
+        <!-- Paso 3 -->
+        <section class="step">
+            <h2>3. Generar y firmar PDFs</h2>
+            <p class="note">
+                Los documentos se convierten a PDF (hoja Carta) y se firma directamente el PDF
+                para evitar cambios en el contenido.
+            </p>
+            <button id="pdfBtn" disabled>Generar y firmar PDFs</button>
+            <p class="status" id="pdfStatus">Pendiente</p>
+        </section>
+
+        <!-- Paso 4 -->
+        <section class="step">
+            <h2>4. Descargar ZIP final</h2>
+            <button id="downloadBtn" disabled>Descargar ZIP</button>
+            <p class="status" id="downloadStatus">Pendiente</p>
+        </section>
+
+        <a href="/" class="back-link">← Volver al inicio</a>
+    </div>
+
+    <!-- ========================= -->
+    <!-- Columna derecha: Logs -->
+    <!-- ========================= -->
+    <div class="logs-column">
+        <div class="logs-header">
+            <h2>● Proceso en ejecución</h2>
+            <button id="clearLogsBtn" class="btn-secondary">
+                Limpiar logs
+            </button>
+        </div>
+
+        <div id="logConsole" class="logs">
+            Esperando acciones del usuario…
+        </div>
+    </div>
+
+</main>
+
+<script src="{% static 'js/automatizacion.js' %}"></script>
+</body>
+</html>

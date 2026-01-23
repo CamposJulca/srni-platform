@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Colaborador – {{ colaborador.nombre }}</title>
+</head>
+<body>
+
+<h1>{{ colaborador.nombre }}</h1>
+
+<img
+    src="{{ colaborador.foto_url|default:'/static/img/user.png' }}"
+    width="150"
+>
+
+<ul>
+    <li><strong>Correo:</strong> {{ colaborador.correo }}</li>
+    <li><strong>Equipo:</strong> {{ colaborador.equipo }}</li>
+    <li><strong>Estado:</strong> {{ colaborador.estado }}</li>
+</ul>
+
+<hr>
+
+<a href="{% url 'colaboradores:update' colaborador.id %}">
+    <button>✏️ Editar</button>
+</a>
+
+<form method="post" action="{% url 'colaboradores:delete' colaborador.id %}">
+    {% csrf_token %}
+    <button type="submit" onclick="return confirm('¿Eliminar colaborador?')">
+        🗑️ Eliminar
+    </button>
+</form>
+
+<br><br>
+<a href="{% url 'colaboradores:list' %}">← Volver</a>
+
+</body>
+</html>
