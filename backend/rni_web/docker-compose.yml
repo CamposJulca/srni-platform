@@ -1,19 +1,17 @@
 services:
-  web:
+  backend:
     build: .
-    container_name: rni_web
-    command: python manage.py runserver 0.0.0.0:8000
+    container_name: rni_backend
     volumes:
       - ./src:/app
       - ./data:/data
     ports:
       - "8000:8000"
     env_file:
-      - .env
+      - ../.env
     networks:
       - data_stack_net
 
 networks:
   data_stack_net:
     external: true
-

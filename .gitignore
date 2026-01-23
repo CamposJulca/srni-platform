@@ -23,3 +23,5 @@ infra/elastic/data/
 
 # Vite cache
 frontend/rni_front/.vite/
+
+.venv/

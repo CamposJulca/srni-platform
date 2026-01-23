@@ -1,9 +1,19 @@
-Django>=5.0,<6.0
-psycopg2-binary>=2.9
+# --- Core framework ---
+Django>=4.2,<5.0
+djangorestframework>=3.14,<4.0
+asgiref>=3.7,<4.0
+sqlparse>=0.4,<1.0
+
+# --- Database ---
+psycopg2-binary>=2.9,<3.0
+pymongo>=4.6,<5.0
+
+# --- Infra / API ---
 python-dotenv>=1.0
-djangorestframework>=3.15
+requests>=2.31
+
+# --- Seguridad / CORS ---
 django-cors-headers>=4.0
-requests>=2.31.0
-pydantic>=2.6.0
-python-dotenv>=1.0.1
-pymongo>=4.6
+
+# --- Validación / esquemas ---
+pydantic>=2.6,<3.0

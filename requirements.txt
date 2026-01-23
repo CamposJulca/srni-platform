@@ -1,15 +1,19 @@
-et_xmlfile==2.0.0
-greenlet==3.3.0
-numpy==2.4.1
-openpyxl==3.1.5
-pandas==2.3.3
-psycopg2-binary==2.9.11
-python-dateutil==2.9.0.post0
-python-dotenv==1.2.1
-pytz==2025.2
-setuptools==80.9.0
-six==1.17.0
-SQLAlchemy==2.0.45
-typing_extensions==4.15.0
-tzdata==2025.3
-wheel==0.45.1
+# --- Core framework ---
+Django>=4.2,<5.0
+djangorestframework>=3.14,<4.0
+asgiref>=3.7,<4.0
+sqlparse>=0.4,<1.0
+
+# --- Database ---
+psycopg2-binary>=2.9,<3.0
+pymongo>=4.6,<5.0
+
+# --- Infra / API ---
+python-dotenv>=1.0
+requests>=2.31
+
+# --- Seguridad / CORS ---
+django-cors-headers>=4.0
+
+# --- Validación / esquemas ---
+pydantic>=2.6,<3.0

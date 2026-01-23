@@ -22,19 +22,34 @@ ALLOWED_HOSTS = ["*"]
 # APPS
 # ============================
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-   'corsheaders',  
-    'core',
-    'rest_framework',
-    'sinapsis',
-    'projects',
+    # Django
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
 
+    # Third-party
+    "corsheaders",
+    "rest_framework",
+
+    # Core
+    "core",
+
+    # Domains (unified backend)
+    "apps.accounts",
+    "apps.analytics",
+    "apps.automatizacion_documental",
+    "apps.colaboradores",
+    "apps.dashboard",
+    "apps.nlquery",
+
+    # Integrations
+    "sinapsis",
+    "projects",
 ]
+
 
 # ============================
 # MIDDLEWARE
