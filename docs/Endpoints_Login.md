@@ -33,6 +33,45 @@ Este backend utiliza **autenticación por sesión de Django** (`sessionid`) y pr
 Estas pruebas validan el backend **sin frontend**.
 
 ---
+comandos:
+
+limipieza
+Remove-Item .\cookies.txt -ErrorAction SilentlyContinue
+Remove-Item .\login.json -ErrorAction SilentlyContinue
+
+validar conexion backend
+curl.exe -i "http://localhost:8000/api/auth/csrf/"
+
+
+curl.exe -i -c cookies.txt "http://localhost:8000/api/auth/csrf/"
+
+token
+$csrf = (Get-Content .\cookies.txt |
+  Where-Object { $_ -match "`tcsrftoken`t" -and $_ -notmatch "^#" } |
+  Select-Object -Last 1).Split("`t")[-1]
+
+$csrf
+
+login
+Set-Content -NoNewline -Encoding ascii .\login.json '{"username":"jorge","password":"jorge2025."}'
+
+curl.exe -i -b cookies.txt -c cookies.txt `
+  -H "Content-Type: application/json" `
+  -H "X-CSRFToken: $csrf" `
+  --data-binary "@login.json" `
+  "http://localhost:8000/api/auth/login/"
+
+validar conexion
+curl.exe -i -b cookies.txt "http://localhost:8000/api/auth/me/"
+
+logout
+curl.exe -i -b cookies.txt -c cookies.txt `
+  -H "Content-Type: application/json" `
+  -H "X-CSRFToken: $csrf" `
+  --data-binary "{}" `
+  "http://localhost:8000/api/auth/logout/"
+---
+
 
 ### 1) Limpiar cookies previas
 ```powershell
