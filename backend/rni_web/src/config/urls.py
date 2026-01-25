@@ -12,8 +12,11 @@ urlpatterns = [
         path("dashboard/", include("apps.dashboard.urls_api")),
 
 
+        # Rutas API del módulo de colaboradores
+        path("", include("apps.colaboradores.urls_api")),
 
-        path("colaboradores/", include("core.api_urls")),
+
+        # Rutas API del módulo sinapsis
         path("sinapsis/", include("sinapsis.urls")),
     ])),
 ]
