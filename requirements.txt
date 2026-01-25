@@ -12,6 +12,8 @@ pymongo>=4.6,<5.0
 python-dotenv>=1.0
 requests>=2.31
 
+
+openai>=1.0.0
 # --- Seguridad / CORS ---
 django-cors-headers>=4.0
 
