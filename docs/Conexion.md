@@ -33,6 +33,10 @@ powershell
 Copiar código
 docker compose -f infra/docker-compose.yml restart
 docker compose -f backend/rni_web/docker-compose.yml restart
+
+continuo
+docker compose -f backend/rni_web/docker-compose.yml logs -f --tail=200 
+
 5) Apagar todo (cuando termines)
 powershell
 Copiar código

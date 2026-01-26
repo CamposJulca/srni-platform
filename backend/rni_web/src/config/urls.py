@@ -18,6 +18,9 @@ urlpatterns = [
         # Rutas API del módulo NLQuery
         path("", include("apps.nlquery.urls_api")),
 
+        # Rutas API del módulo de analytics
+        path("", include("apps.analytics.urls_api")),
+
 
         # Rutas API del módulo sinapsis
         path("sinapsis/", include("sinapsis.urls")),
