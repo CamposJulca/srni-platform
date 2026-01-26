@@ -21,6 +21,8 @@ urlpatterns = [
         # Rutas API del módulo de analytics
         path("", include("apps.analytics.urls_api")),
 
+        # Rutas API del módulo de automatización documental
+        path("", include("apps.automatizacion_documental.urls_api")),
 
         # Rutas API del módulo sinapsis
         path("sinapsis/", include("sinapsis.urls")),
