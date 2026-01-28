@@ -1,12 +1,6 @@
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from django.db import connection
+from .models import ColaboradorCore
 
-
-@login_required
-def colaborador_list_view(request):
-    """
-    Vista inicial: listado visual de colaboradores.
-    Por ahora solo renderiza el template.
-    """
-    return render(request, "colaboradores/list.html")
+def list_colaboradores(request):
+    colaboradores = ColaboradorCore.objects.all().order_by("id")[:200]
+    return render(request, "colaboradores/list.html", {"colaboradores": colaboradores})
