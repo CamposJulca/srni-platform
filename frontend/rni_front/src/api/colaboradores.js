@@ -2,7 +2,6 @@ import { api } from "./http";
 
 export async function getColaboradores() {
   console.debug("[SERVICE] getColaboradores()");
-  const response = await api.get("colaboradores/");
+  const response = await api.get("api/colaboradores/");
   return response.data;
 }
-

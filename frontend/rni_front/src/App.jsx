@@ -1,7 +1,8 @@
-import SinapsisDashboard from "./pages/SinapsisDashboard";
+// import SinapsisDashboard from "./pages/SinapsisDashboard";
+import Colaboradores from "./pages/Colaboradores";
 
 function App() {
-  return <SinapsisDashboard />;
+  return <Colaboradores />;
 }
 
 export default App;

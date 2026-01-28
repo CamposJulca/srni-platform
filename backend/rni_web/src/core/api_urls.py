@@ -5,6 +5,6 @@ from .api_views import (
 )
 
 urlpatterns = [
-    path("colaboradores/", ColaboradorListCreateView.as_view(), name="api_colaborador_list"),
-    path("colaboradores/<int:pk>/", ColaboradorDetailView.as_view(), name="api_colaborador_detail"),
+    path("colaboradores/", ColaboradorListCreateView.as_view()),
+    path("colaboradores/<int:pk>/", ColaboradorDetailView.as_view()),
 ]
