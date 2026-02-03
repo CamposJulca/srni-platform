@@ -1,0 +1,155 @@
+:root {
+  --azul-primario: #003a8c;
+  --azul-hover: #002f73;
+  --card-bg: #ffffff;
+  --text: #111;
+  --muted: #555;
+  --border: #d7d7d7;
+  --shadow: 0 14px 40px rgba(0, 0, 0, 0.18);
+}
+
+/* Fondo general del login */
+.login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 28px 16px;
+}
+
+/* Tarjeta */
+.login-card {
+  background: var(--card-bg);
+  padding: 2.2rem 2.4rem;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 520px;
+  box-shadow: var(--shadow);
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* Contenedor del logo (círculo) */
+.login-logo-wrap {
+  width: 112px;
+  height: 112px;
+  margin: 0 auto 14px auto;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.10);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Logo dentro del círculo */
+.login-logo {
+  width: 82px;
+  height: 82px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Títulos */
+.login-card h2 {
+  margin: 10px 0 6px 0;
+  font-size: 1.55rem;
+  color: var(--text);
+  letter-spacing: 0.2px;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin: 0 0 18px 0;
+  font-size: 0.98rem;
+}
+
+/* Mensaje de error */
+.error {
+  background: #fdecea;
+  color: #b71c1c;
+  padding: 0.7rem 0.85rem;
+  border-radius: 10px;
+  margin: 0 0 14px 0;
+  text-align: left;
+  border: 1px solid rgba(183, 28, 28, 0.18);
+}
+
+/* Campos */
+.field {
+  text-align: left;
+  margin-bottom: 14px;
+}
+
+.field label {
+  font-size: 0.92rem;
+  display: block;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+
+/* Inputs */
+.field input {
+  width: 100%;
+  padding: 0.72rem 0.85rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  outline: none;
+  font-size: 1rem;
+  background: #fff;
+  color: #111;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.field input:focus {
+  border-color: rgba(0, 58, 140, 0.55);
+  box-shadow: 0 0 0 4px rgba(0, 58, 140, 0.12);
+}
+
+/* Botón */
+.btn-primary {
+  width: 100%;
+  padding: 0.85rem;
+  background: var(--azul-primario);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: transform 80ms ease, background 160ms ease;
+}
+
+.btn-primary:hover {
+  background: var(--azul-hover);
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
+}
+
+.btn-primary:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login-card {
+    padding: 1.6rem 1.4rem;
+    border-radius: 14px;
+  }
+  .login-logo-wrap {
+    width: 104px;
+    height: 104px;
+  }
+  .login-logo {
+    width: 76px;
+    height: 76px;
+  }
+}
+
+
