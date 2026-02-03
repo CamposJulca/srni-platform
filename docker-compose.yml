@@ -1,0 +1,28 @@
+
+services:
+  backend:
+    build: ./backend/rni_web
+    container_name: rni_backend
+    env_file:
+      - .env
+    volumes:
+      - ./backend/rni_web/src:/app
+      - ./backend/rni_web/data:/data
+    ports:
+      - "8000:8000"
+    networks:
+      - srni_net
+
+  frontend:
+    build: ./frontend/rni_front
+    container_name: rni_frontend
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"
+    networks:
+      - srni_net
+
+networks:
+  srni_net:
+    driver: bridge

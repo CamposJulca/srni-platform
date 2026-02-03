@@ -17,3 +17,4 @@ django-cors-headers>=4.0
 
 # --- Validación / esquemas ---
 pydantic>=2.6,<3.0
+dj-database-url>=2.1.0
