@@ -1,6 +1,8 @@
+# apps/analytics/urls_api.py
 from django.urls import path
-from .api import execute_sql
+from . import api
 
 urlpatterns = [
-    path("api/sql/execute/", execute_sql, name="api_execute_sql"),
+    path("analytics/health/", api.analytics_health, name="api_analytics_health"),
+    path("analytics/sql/execute/", api.execute_sql, name="api_analytics_execute_sql"),
 ]
