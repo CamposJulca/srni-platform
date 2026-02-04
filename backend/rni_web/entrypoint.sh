@@ -2,17 +2,17 @@
 set -e
 
 if [ -n "$DB_HOST" ]; then
-  echo "⏳ Waiting for PostgreSQL..."
+  echo "Ã¢ÂÂ³ Waiting for PostgreSQL..."
   until pg_isready -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER"; do
     sleep 2
   done
-  echo "✅ PostgreSQL is ready"
+  echo "Ã¢Å“â€¦ PostgreSQL is ready"
 else
-  echo "ℹ️  No DB_HOST set → using SQLite (DEV mode)"
+  echo "Ã¢â€žÂ¹Ã¯Â¸Â  No DB_HOST set Ã¢â€ â€™ using SQLite (DEV mode)"
 fi
 
-echo "📦 Applying migrations..."
+echo "Ã°Å¸â€œÂ¦ Applying migrations..."
 python manage.py migrate --noinput
 
-echo "🚀 Starting Django"
+echo "Ã°Å¸Å¡â‚¬ Starting Django"
 exec "$@"

@@ -1,15 +1,19 @@
-
 import { useEffect, useState } from "react";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
+import Colaboradores from "./pages/Colaboradores";
+import Automatizacion from "./pages/Automatizacion";
+import PosicionarFirma from "./pages/PosicionarFirma";
 import { me } from "./api/auth";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [isAuth, setIsAuth] = useState(false);
 
-  const [screen, setScreen] = useState("home"); // home | dashboard | sql | colaboradores | automatizacion
+  // router por estado
+  const [screen, setScreen] = useState("home");
+  // home | dashboard | colaboradores | automatizacion | posicionarFirma | sql
 
   useEffect(() => {
     (async () => {
@@ -40,50 +44,57 @@ export default function App() {
     );
   }
 
-  // NAV GLOBAL
+  // NAV GLOBAL (lo pasamos a todas las pantallas)
   const nav = {
     onGoHome: () => setScreen("home"),
     onGoDashboard: () => setScreen("dashboard"),
     onGoSql: () => alert("Pendiente: módulo Query SQL"),
-    onGoColaboradores: () => alert("Pendiente: módulo Colaboradores"),
-    onGoAutomatizacion: () => alert("Pendiente: Automatización Documental"),
+    onGoColaboradores: () => setScreen("colaboradores"),
+    onGoAutomatizacion: () => setScreen("automatizacion"),
+  };
+
+  const onAppLogout = () => {
+    setIsAuth(false);
+    setScreen("home");
   };
 
   // HOME
   if (screen === "home") {
-    return (
-      <Home
-        {...nav}
-        onLogoutApp={() => {
-          setIsAuth(false);
-          setScreen("home");
-        }}
-      />
-    );
+    return <Home {...nav} onLogoutApp={onAppLogout} />;
   }
 
   // DASHBOARD
   if (screen === "dashboard") {
+    return <Dashboard {...nav} onLogout={onAppLogout} />;
+  }
+
+  // COLABORADORES
+  if (screen === "colaboradores") {
+    return <Colaboradores {...nav} onLogout={onAppLogout} />;
+  }
+
+  // AUTOMATIZACIÓN
+  if (screen === "automatizacion") {
     return (
-      <Dashboard
+      <Automatizacion
         {...nav}
-        onLogout={() => {
-          setIsAuth(false);
-          setScreen("home");
-        }}
+        onLogout={onAppLogout}
+        onGoPosicionarFirma={() => setScreen("posicionarFirma")}
       />
     );
   }
 
-  // FALLBACK
-  return (
-    <Home
-      {...nav}
-      onLogoutApp={() => {
-        setIsAuth(false);
-        setScreen("home");
-      }}
-    />
-  );
+  // POSICIONAR FIRMA
+  if (screen === "posicionarFirma") {
+    return (
+      <PosicionarFirma
+        {...nav}
+        onLogout={onAppLogout}
+        onDone={() => setScreen("automatizacion")}
+      />
+    );
+  }
 
+  // fallback
+  return <Home {...nav} onLogoutApp={onAppLogout} />;
 }

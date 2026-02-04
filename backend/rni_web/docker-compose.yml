@@ -4,11 +4,13 @@ services:
     container_name: rni_backend
     ports:
       - "8000:8000"
+
+    # ✅ TU .env real está aquí mismo (backend/rni_web/.env)
     env_file:
-      - ../.env
+      - ./.env
+
     networks:
       - data_stack_net
-
 
 networks:
   data_stack_net:

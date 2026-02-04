@@ -1,0 +1,215 @@
+/* ===== Header ===== */
+.colab-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.colab-h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.colab-sub {
+  margin: 6px 0 0 0;
+  color: #667085;
+  font-size: 13px;
+}
+
+.colab-summary {
+  color: #667085;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+/* ===== Helpers ===== */
+.colab-muted {
+  color: #667085;
+  padding: 12px 0;
+}
+
+.colab-error {
+  background: #fdecea;
+  color: #b71c1c;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #f5c6cb;
+  margin-top: 12px;
+}
+
+/* ===== Filters ===== */
+.colab-filters {
+  display: grid;
+  grid-template-columns: 1fr 220px auto;
+  gap: 12px;
+  align-items: end;
+  background: #fff;
+  border: 1px solid #e6e8ee;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 14px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.filter-label {
+  font-size: 12px;
+  color: #344054;
+  font-weight: 700;
+}
+
+.filter-input {
+  height: 40px;
+  border: 1px solid #d0d5dd;
+  border-radius: 10px;
+  padding: 0 12px;
+  font-size: 14px;
+  outline: none;
+}
+
+.filter-input:focus {
+  border-color: #003a8f;
+  box-shadow: 0 0 0 3px rgba(0, 58, 143, 0.12);
+}
+
+.filter-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* ===== Buttons ===== */
+.btn-primary {
+  height: 40px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 10px;
+  background: #003a8f;
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #002f73;
+}
+
+.btn-secondary {
+  height: 40px;
+  padding: 0 14px;
+  border: 1px solid #d0d5dd;
+  border-radius: 10px;
+  background: #fff;
+  color: #111827;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: #f9fafb;
+}
+
+.btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ===== Table ===== */
+.colab-table-wrap {
+  background: #fff;
+  border: 1px solid #e6e8ee;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.colab-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.colab-table thead th {
+  text-align: left;
+  padding: 12px 14px;
+  background: #f9fafb;
+  color: #344054;
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid #e6e8ee;
+  text-transform: uppercase;
+}
+
+.colab-table tbody td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #eef0f5;
+}
+
+.colab-table tbody tr:hover {
+  background: #fbfdff;
+}
+
+/* ===== Badge ===== */
+.colab-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  border: 1px solid #e6e8ee;
+  background: #f9fafb;
+  color: #344054;
+}
+
+.colab-badge.activo {
+  background: #ecfdf3;
+  border-color: #a6f4c5;
+  color: #027a48;
+}
+
+.colab-badge.inactivo {
+  background: #fff1f2;
+  border-color: #fecdd3;
+  color: #9f1239;
+}
+
+/* ===== Pagination ===== */
+.colab-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.page-indicator {
+  color: #344054;
+  font-size: 13px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+  .colab-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-actions {
+    justify-content: flex-start;
+  }
+
+  .colab-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .colab-pagination {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

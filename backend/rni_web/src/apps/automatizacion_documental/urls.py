@@ -1,25 +1,19 @@
+# apps/automatizacion_documental/urls.py
 from django.urls import path
-from . import views
-
-app_name = "automatizacion"
+from . import api
 
 urlpatterns = [
-    path("", views.documentos_view, name="documentos"),
+    path("health/", api.health),
+    path("upload/", api.upload_zip_firma),
 
-    path("cargar-zip/", views.cargar_zip, name="cargar_zip"),
+    # ✅ NUEVO (Enfoque B)
+    path("preview/convert/", api.preview_convert),
 
-    path(
-        "posicionar-firma/",
-        views.posicionar_firma_view,
-        name="posicionar_firma",
-    ),
+    path("preview/", api.preview_info),
+    path("preview/pdf/", api.preview_pdf),
+    path("preview/firma/", api.preview_firma),
 
-    path(
-        "guardar-posicion-firma/",
-        views.guardar_posicion_firma,
-        name="guardar_posicion_firma",
-    ),
-
-    path("generar-pdfs/", views.generar_pdfs, name="generar_pdfs"),
-    path("descargar-zip/", views.descargar_zip, name="descargar_zip"),
+    path("firma/position/", api.save_signature_position),
+    path("generate/", api.generate_signed_pdfs),
+    path("download/", api.download_zip),
 ]

@@ -11,4 +11,6 @@ urlpatterns = [
     path("automatizacion/firma/position/", api.save_signature_position, name="api_automatizacion_save_signature_position"),
     path("automatizacion/generate/", api.generate_signed_pdfs, name="api_automatizacion_generate"),
     path("automatizacion/download/", api.download_zip, name="api_automatizacion_download"),
+    path("automatizacion/preview/convert/", api.preview_convert, name="api_automatizacion_preview_convert"),
+
 ]
