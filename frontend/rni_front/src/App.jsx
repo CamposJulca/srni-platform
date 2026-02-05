@@ -1,100 +1,54 @@
+// src/App.jsx
 import { useEffect, useState } from "react";
-import Login from "./pages/Login";
-import Home from "./pages/Home";
+
 import Dashboard from "./pages/Dashboard";
 import Colaboradores from "./pages/Colaboradores";
 import Automatizacion from "./pages/Automatizacion";
 import PosicionarFirma from "./pages/PosicionarFirma";
+
+import QuerySQL from "./pages/QuerySQL";
+import NLQuery from "./pages/NLQuery";
+
+import Login from "./pages/Login"; // Si ya tienes Login. Si tu login se llama distinto, cámbialo.
+
 import { me } from "./api/auth";
 
 export default function App() {
-  const [loading, setLoading] = useState(true);
-  const [isAuth, setIsAuth] = useState(false);
+  const [page, setPage] = useState("dashboard");
 
-  // router por estado
-  const [screen, setScreen] = useState("home");
-  // home | dashboard | colaboradores | automatizacion | posicionarFirma | sql
+  // Navegación global (mismo patrón de callbacks)
+  const nav = {
+    onGoHome: () => setPage("dashboard"),
+    onGoDashboard: () => setPage("dashboard"),
+    onGoSql: () => setPage("sql"),
+    onGoNLQuery: () => setPage("nlquery"),
+    onGoColaboradores: () => setPage("colaboradores"),
+    onGoAutomatizacion: () => setPage("automatizacion"),
+    onGoPosicionarFirma: () => setPage("posicionar_firma"),
+    onLogout: () => setPage("login"),
+  };
 
+  // (Opcional pero recomendado) Si no está autenticado, manda a login
   useEffect(() => {
     (async () => {
       try {
-        const data = await me();
-        const ok = !!data?.authenticated;
-        setIsAuth(ok);
-        if (ok) setScreen("home");
+        await me();
+        // ok
       } catch {
-        setIsAuth(false);
-      } finally {
-        setLoading(false);
+        setPage("login");
       }
     })();
   }, []);
 
-  if (loading) return null;
+  if (page === "login") return <Login {...nav} />;
 
-  // NO AUTH → LOGIN
-  if (!isAuth) {
-    return (
-      <Login
-        onLoggedIn={() => {
-          setIsAuth(true);
-          setScreen("home");
-        }}
-      />
-    );
-  }
+  if (page === "dashboard") return <Dashboard {...nav} />;
+  if (page === "colaboradores") return <Colaboradores {...nav} />;
+  if (page === "automatizacion") return <Automatizacion {...nav} />;
+  if (page === "posicionar_firma") return <PosicionarFirma {...nav} onDone={() => setPage("automatizacion")} />;
 
-  // NAV GLOBAL (lo pasamos a todas las pantallas)
-  const nav = {
-    onGoHome: () => setScreen("home"),
-    onGoDashboard: () => setScreen("dashboard"),
-    onGoSql: () => alert("Pendiente: módulo Query SQL"),
-    onGoColaboradores: () => setScreen("colaboradores"),
-    onGoAutomatizacion: () => setScreen("automatizacion"),
-  };
+  if (page === "sql") return <QuerySQL {...nav} />;
+  if (page === "nlquery") return <NLQuery {...nav} />;
 
-  const onAppLogout = () => {
-    setIsAuth(false);
-    setScreen("home");
-  };
-
-  // HOME
-  if (screen === "home") {
-    return <Home {...nav} onLogoutApp={onAppLogout} />;
-  }
-
-  // DASHBOARD
-  if (screen === "dashboard") {
-    return <Dashboard {...nav} onLogout={onAppLogout} />;
-  }
-
-  // COLABORADORES
-  if (screen === "colaboradores") {
-    return <Colaboradores {...nav} onLogout={onAppLogout} />;
-  }
-
-  // AUTOMATIZACIÓN
-  if (screen === "automatizacion") {
-    return (
-      <Automatizacion
-        {...nav}
-        onLogout={onAppLogout}
-        onGoPosicionarFirma={() => setScreen("posicionarFirma")}
-      />
-    );
-  }
-
-  // POSICIONAR FIRMA
-  if (screen === "posicionarFirma") {
-    return (
-      <PosicionarFirma
-        {...nav}
-        onLogout={onAppLogout}
-        onDone={() => setScreen("automatizacion")}
-      />
-    );
-  }
-
-  // fallback
-  return <Home {...nav} onLogoutApp={onAppLogout} />;
+  return <Dashboard {...nav} />;
 }

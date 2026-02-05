@@ -1,0 +1,133 @@
+/* src/assets/nlquery.css */
+.nlq-header h2 { margin: 0; font-size: 22px; font-weight: 900; }
+.nlq-header p { margin: 6px 0 12px 0; color: #667085; font-size: 13px; }
+
+.nlq-header-row{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+}
+
+
+.nlq-badges { display: flex; gap: 8px; margin-bottom: 12px; }
+.nlq-badge {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 12px;
+  border: 1px solid #e6e8ee;
+}
+.nlq-badge.ok { color: #027a48; background: #ecfdf3; border-color: #abefc6; }
+.nlq-badge.err { color: #b42318; background: #fef3f2; border-color: #fecdca; }
+.nlq-badge.warn { color: #b54708; background: #fffaeb; border-color: #fedf89; }
+
+.nlq-error {
+  background: #fdecea;
+  color: #b71c1c;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #f5c6cb;
+  margin-bottom: 14px;
+}
+
+.nlq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.nlq-card {
+  background: #fff;
+  border: 1px solid #e6e8ee;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 2px 10px rgba(16, 24, 40, 0.04);
+}
+
+.nlq-card h3 { margin: 0 0 10px 0; font-weight: 900; font-size: 16px; }
+
+.nlq-textarea {
+  width: 100%;
+  min-height: 140px;
+  padding: 10px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 13px;
+  border-radius: 10px;
+  border: 1px solid #d0d5dd;
+  resize: vertical;
+}
+
+.nlq-actions { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+
+.nlq-btn {
+  height: 40px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 10px;
+  background: #003a8f;
+  color: #fff;
+  font-weight: 900;
+  cursor: pointer;
+}
+.nlq-btn:hover { background: #002f73; }
+.nlq-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.nlq-btn.secondary { background: #111827; }
+.nlq-btn.secondary:hover { background: #0b1220; }
+
+.nlq-hint {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #fffaeb;
+  border: 1px solid #fedf89;
+  color: #b54708;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.nlq-table-wrapper {
+  margin-top: 12px;
+  overflow-x: auto;
+  border: 1px solid #e6e8ee;
+  border-radius: 10px;
+}
+
+.nlq-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.nlq-table thead { background: #f1f4f9; }
+
+.nlq-table th, .nlq-table td {
+  padding: 10px;
+  border-bottom: 1px solid #e6e8ee;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.nlq-table th { font-weight: 900; }
+
+.nlq-debug {
+  margin-top: 14px;
+  background: #fff;
+  border: 1px solid #e6e8ee;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.nlq-debug pre {
+  background: #0d1117;
+  color: #e6edf3;
+  padding: 10px;
+  border-radius: 10px;
+  overflow-x: auto;
+  font-size: 12px;
+}
+
+@media (max-width: 980px) {
+  .nlq-grid { grid-template-columns: 1fr; }
+}

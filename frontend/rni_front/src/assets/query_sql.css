@@ -1,0 +1,109 @@
+/* src/assets/query_sql.css */
+.qsql-header h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 900;
+}
+.qsql-header p {
+  margin: 6px 0 12px 0;
+  color: #667085;
+  font-size: 13px;
+}
+.qsql-header-row{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.qsql-pill {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 12px;
+  margin-bottom: 12px;
+  border: 1px solid #e6e8ee;
+}
+.qsql-pill.ok { color: #027a48; background: #ecfdf3; border-color: #abefc6; }
+.qsql-pill.err { color: #b42318; background: #fef3f2; border-color: #fecdca; }
+
+.qsql-error {
+  background: #fdecea;
+  color: #b71c1c;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #f5c6cb;
+  margin-bottom: 14px;
+}
+
+.qsql-card {
+  background: #fff;
+  border: 1px solid #e6e8ee;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 2px 10px rgba(16, 24, 40, 0.04);
+}
+
+.qsql-textarea {
+  width: 100%;
+  min-height: 160px;
+  padding: 10px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 13px;
+  border-radius: 10px;
+  border: 1px solid #d0d5dd;
+  resize: vertical;
+}
+
+.qsql-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  margin-bottom: 10px;
+}
+
+.qsql-btn {
+  height: 40px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 10px;
+  background: #003a8f;
+  color: #fff;
+  font-weight: 900;
+  cursor: pointer;
+}
+.qsql-btn:hover { background: #002f73; }
+.qsql-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.qsql-btn.secondary { background: #111827; }
+.qsql-btn.secondary:hover { background: #0b1220; }
+
+.qsql-table-wrapper {
+  margin-top: 12px;
+  overflow-x: auto;
+  border: 1px solid #e6e8ee;
+  border-radius: 10px;
+}
+
+.qsql-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.qsql-table thead {
+  background: #f1f4f9;
+}
+
+.qsql-table th,
+.qsql-table td {
+  padding: 10px 10px;
+  border-bottom: 1px solid #e6e8ee;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.qsql-table th {
+  font-weight: 900;
+}

@@ -1,3 +1,4 @@
+// src/layouts/AppLayout.jsx
 import "../assets/dashboard.css";
 
 export default function AppLayout({
@@ -8,6 +9,7 @@ export default function AppLayout({
   onGoHome,
   onGoDashboard,
   onGoSql,
+  onGoNLQuery,       // ✅ nuevo
   onGoColaboradores,
   onGoAutomatizacion,
 
@@ -44,6 +46,12 @@ export default function AppLayout({
             <button type="button" onClick={() => onGoSql?.()}>
               Query SQL
             </button>
+
+            {/* ✅ nuevo */}
+            <button type="button" onClick={() => onGoNLQuery?.()}>
+              NLQuery
+            </button>
+
             <button type="button" onClick={() => onGoColaboradores?.()}>
               Colaboradores
             </button>
