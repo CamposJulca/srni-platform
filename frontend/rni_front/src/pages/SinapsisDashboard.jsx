@@ -19,67 +19,58 @@ import {
 ============================ */
 function countBy(items, field) {
   const counts = {};
-
   items.forEach((item) => {
-    const key = item[field] ?? "No definido";
+    const key = item?.[field] ?? "No definido";
     counts[key] = (counts[key] || 0) + 1;
   });
 
-  return Object.entries(counts).map(([name, value]) => ({
-    name,
-    value,
-  }));
+  return Object.entries(counts).map(([name, value]) => ({ name, value }));
 }
 
 /* ============================
-   Paletas de colores
+   Paletas
 ============================ */
 const COLORS_STATUS = ["#60a5fa", "#fbbf24", "#f87171", "#a78bfa"];
-const COLORS_LIFECYCLE = [
-  "#facc15", // Concept
-  "#a78bfa", // Development
-  "#4ade80", // Maintenance
-  "#60a5fa", // No definido
-  "#fb7185", // Production
-  "#22c55e", // Retirement
-];
+const COLORS_LIFECYCLE = ["#facc15", "#a78bfa", "#4ade80", "#60a5fa", "#fb7185", "#22c55e"];
 const COLORS_RISK = ["#ef4444", "#9ca3af", "#22c55e", "#f97316"];
 const COLORS_INITIATIVE = ["#4ade80", "#60a5fa", "#fbbf24", "#9ca3af"];
 
 /* ============================
-   Componente principal
+   Componente
 ============================ */
 export default function SinapsisDashboard() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    fetchProjects()
-      .then(setProjects)
-      .catch((e) => setError(e.message))
-      .finally(() => setLoading(false));
+    (async () => {
+      try {
+        const data = await fetchProjects();
+        // si backend devuelve {ok:true,data:[...]} o solo [...]
+        const list = Array.isArray(data) ? data : (data?.data || []);
+        setProjects(list);
+      } catch (e) {
+        setError(e?.message || "Error cargando SINAPSIS");
+      } finally {
+        setLoading(false);
+      }
+    })();
   }, []);
 
-  if (loading) return <p>Cargando proyectos SINAPSIS…</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (loading) return <p style={{ padding: "1.5rem" }}>Cargando proyectos SINAPSIS…</p>;
+  if (error) return <p style={{ padding: "1.5rem" }}>Error: {error}</p>;
 
-  /* ============================
-     Datos agregados
-  ============================ */
   const byStatus = countBy(projects, "status");
   const byLifecycle = countBy(projects, "lifecycle_stage");
   const byRisk = countBy(projects, "risk_level");
   const byInitiative = countBy(projects, "initiative_level");
 
   return (
-    <div style={{ padding: "1.5rem", color: "#e5e7eb" }}>
+    <div style={{ padding: "1.5rem" }}>
       <h1>Dashboard SINAPSIS</h1>
       <p>Total proyectos: {projects.length}</p>
 
-      {/* ============================
-          GRÁFICAS
-      ============================ */}
       <div
         style={{
           display: "grid",
@@ -88,7 +79,6 @@ export default function SinapsisDashboard() {
           marginTop: "2rem",
         }}
       >
-        {/* Proyectos por Estado */}
         <section>
           <h3>Proyectos por Estado</h3>
           <ResponsiveContainer width="100%" height={280}>
@@ -105,23 +95,13 @@ export default function SinapsisDashboard() {
           </ResponsiveContainer>
         </section>
 
-        {/* Proyectos por Ciclo de Vida */}
         <section>
           <h3>Proyectos por Ciclo de Vida</h3>
           <ResponsiveContainer width="100%" height={280}>
             <PieChart>
-              <Pie
-                data={byLifecycle}
-                dataKey="value"
-                nameKey="name"
-                outerRadius={110}
-                label
-              >
+              <Pie data={byLifecycle} dataKey="value" nameKey="name" outerRadius={110} label>
                 {byLifecycle.map((_, i) => (
-                  <Cell
-                    key={i}
-                    fill={COLORS_LIFECYCLE[i % COLORS_LIFECYCLE.length]}
-                  />
+                  <Cell key={i} fill={COLORS_LIFECYCLE[i % COLORS_LIFECYCLE.length]} />
                 ))}
               </Pie>
               <Tooltip />
@@ -130,7 +110,6 @@ export default function SinapsisDashboard() {
           </ResponsiveContainer>
         </section>
 
-        {/* Proyectos por Nivel de Riesgo */}
         <section>
           <h3>Proyectos por Nivel de Riesgo</h3>
           <ResponsiveContainer width="100%" height={280}>
@@ -147,7 +126,6 @@ export default function SinapsisDashboard() {
           </ResponsiveContainer>
         </section>
 
-        {/* Proyectos por Nivel de Iniciativa */}
         <section>
           <h3>Proyectos por Nivel de Iniciativa</h3>
           <ResponsiveContainer width="100%" height={280}>
@@ -157,10 +135,7 @@ export default function SinapsisDashboard() {
               <Tooltip />
               <Bar dataKey="value">
                 {byInitiative.map((_, i) => (
-                  <Cell
-                    key={i}
-                    fill={COLORS_INITIATIVE[i % COLORS_INITIATIVE.length]}
-                  />
+                  <Cell key={i} fill={COLORS_INITIATIVE[i % COLORS_INITIATIVE.length]} />
                 ))}
               </Bar>
             </BarChart>
@@ -168,16 +143,9 @@ export default function SinapsisDashboard() {
         </section>
       </div>
 
-      {/* ============================
-          TABLA DETALLE
-      ============================ */}
       <h3 style={{ marginTop: "3rem" }}>Detalle de proyectos</h3>
 
-      <table
-        border="1"
-        cellPadding="6"
-        style={{ width: "100%", borderCollapse: "collapse" }}
-      >
+      <table border="1" cellPadding="6" style={{ width: "100%", borderCollapse: "collapse" }}>
         <thead>
           <tr>
             <th>Nombre</th>
@@ -190,11 +158,11 @@ export default function SinapsisDashboard() {
         <tbody>
           {projects.map((p, i) => (
             <tr key={i}>
-              <td>{p.name}</td>
-              <td>{p.status}</td>
-              <td>{p.lifecycle_stage ?? "—"}</td>
-              <td>{p.risk_level ?? "—"}</td>
-              <td>{p.initiative_level ?? "—"}</td>
+              <td>{p?.name}</td>
+              <td>{p?.status}</td>
+              <td>{p?.lifecycle_stage ?? "—"}</td>
+              <td>{p?.risk_level ?? "—"}</td>
+              <td>{p?.initiative_level ?? "—"}</td>
             </tr>
           ))}
         </tbody>

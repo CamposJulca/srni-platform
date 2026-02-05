@@ -183,3 +183,43 @@ hr {
   border: none;
   border-top: 1px solid #e5e7eb;
 }
+/* ===== Dropdown "Consultas" ===== */
+.menu-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.menu-dropdown-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.menu-dropdown-panel {
+  position: absolute;
+  top: 44px;
+  left: 0;
+  min-width: 180px;
+  background: #ffffff;
+  border: 1px solid #e6e8ee;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(16, 24, 40, 0.12);
+  padding: 8px;
+  z-index: 9999;
+}
+
+.menu-dropdown-panel button {
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: transparent;
+  padding: 10px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.menu-dropdown-panel button:hover {
+  background: #f1f4f9;
+}

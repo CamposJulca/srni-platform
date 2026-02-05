@@ -1,54 +1,65 @@
-// src/App.jsx
 import { useEffect, useState } from "react";
+import { me } from "./api/auth";
 
+import Login from "./pages/Login";
+import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Colaboradores from "./pages/Colaboradores";
 import Automatizacion from "./pages/Automatizacion";
-import PosicionarFirma from "./pages/PosicionarFirma";
-
 import QuerySQL from "./pages/QuerySQL";
 import NLQuery from "./pages/NLQuery";
-
-import Login from "./pages/Login"; // Si ya tienes Login. Si tu login se llama distinto, cámbialo.
-
-import { me } from "./api/auth";
+import Sinapsis from "./pages/Sinapsis";
 
 export default function App() {
-  const [page, setPage] = useState("dashboard");
+  // ✅ Nunca dejamos pantalla en blanco: por defecto login.
+  const [view, setView] = useState("login");
 
-  // Navegación global (mismo patrón de callbacks)
-  const nav = {
-    onGoHome: () => setPage("dashboard"),
-    onGoDashboard: () => setPage("dashboard"),
-    onGoSql: () => setPage("sql"),
-    onGoNLQuery: () => setPage("nlquery"),
-    onGoColaboradores: () => setPage("colaboradores"),
-    onGoAutomatizacion: () => setPage("automatizacion"),
-    onGoPosicionarFirma: () => setPage("posicionar_firma"),
-    onLogout: () => setPage("login"),
-  };
-
-  // (Opcional pero recomendado) Si no está autenticado, manda a login
   useEffect(() => {
+    let alive = true;
+
     (async () => {
       try {
-        await me();
-        // ok
+        await me(); // usa tu auth.js tal cual
+        if (alive) setView("home");
       } catch {
-        setPage("login");
+        if (alive) setView("login");
       }
     })();
+
+    return () => {
+      alive = false;
+    };
   }, []);
 
-  if (page === "login") return <Login {...nav} />;
+  function go(v) {
+    setView(v);
+  }
 
-  if (page === "dashboard") return <Dashboard {...nav} />;
-  if (page === "colaboradores") return <Colaboradores {...nav} />;
-  if (page === "automatizacion") return <Automatizacion {...nav} />;
-  if (page === "posicionar_firma") return <PosicionarFirma {...nav} onDone={() => setPage("automatizacion")} />;
+  function handleLogoutApp() {
+    setView("login");
+  }
 
-  if (page === "sql") return <QuerySQL {...nav} />;
-  if (page === "nlquery") return <NLQuery {...nav} />;
+  const nav = {
+    onGoHome: () => go("home"),
+    onGoDashboard: () => go("dashboard"),
+    onGoSql: () => go("sql"),
+    onGoNLQuery: () => go("nlquery"),
+    onGoColaboradores: () => go("colaboradores"),
+    onGoAutomatizacion: () => go("automatizacion"),
+    onGoSinapsis: () => go("sinapsis"),
+  };
 
-  return <Dashboard {...nav} />;
+  if (view === "login") {
+    return <Login onLoginOk={() => go("home")} />;
+  }
+
+  if (view === "home") return <Home {...nav} onLogoutApp={handleLogoutApp} />;
+  if (view === "dashboard") return <Dashboard {...nav} onLogout={handleLogoutApp} />;
+  if (view === "sql") return <QuerySQL {...nav} onLogout={handleLogoutApp} />;
+  if (view === "nlquery") return <NLQuery {...nav} onLogout={handleLogoutApp} />;
+  if (view === "colaboradores") return <Colaboradores {...nav} onLogout={handleLogoutApp} />;
+  if (view === "automatizacion") return <Automatizacion {...nav} onLogout={handleLogoutApp} />;
+  if (view === "sinapsis") return <Sinapsis {...nav} onLogout={handleLogoutApp} />;
+
+  return <Login onLoginOk={() => go("home")} />;
 }

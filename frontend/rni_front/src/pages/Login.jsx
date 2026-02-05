@@ -1,23 +1,22 @@
 import { useState } from "react";
-import { login } from "../api/auth";
 import "../assets/login.css";
+import { login } from "../api/auth";
 
-export default function Login({ onLoggedIn }) {
-  const [username, setUsername] = useState("");
+export default function Login({ onLoginOk }) {
+  const [username, setUsername] = useState("usuario@unidadvictimas.gov.co");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
 
-  async function handleSubmit(e) {
+  async function submit(e) {
     e.preventDefault();
-    setError("");
     setBusy(true);
-
+    setError("");
     try {
       await login(username, password);
-      onLoggedIn?.(); // avisa al App que ya hay sesión
+      onLoginOk?.();
     } catch (err) {
-      setError(err?.message || "Usuario o contraseña incorrectos");
+      setError(err.message || "No se pudo iniciar sesión");
     } finally {
       setBusy(false);
     }
@@ -26,47 +25,44 @@ export default function Login({ onLoggedIn }) {
   return (
     <div className="login-wrapper">
       <div className="login-card">
-        {/* ⬇️ public/ se usa por URL directa */}
-<div className="login-logo-wrap">
-  <img
-    src="/logo-unidad-victimas.png"
-    alt="Unidad para las Víctimas"
-    className="login-logo"
-  />
-</div>
+        <div className="login-logo-wrap">
+          <img
+            className="login-logo"
+            src="/logo-unidad-victimas.png"
+            alt="Unidad para las Víctimas"
+          />
+        </div>
 
         <h2>Bienvenido a RNI</h2>
         <p className="subtitle">Ingreso institucional</p>
 
-        {error ? <div className="error">{error}</div> : null}
+        {error && (
+          <div className="error">
+            <b>Error:</b> {error}
+          </div>
+        )}
 
-        <form onSubmit={handleSubmit} id="login-form">
+        <form onSubmit={submit}>
           <div className="field">
-            <label htmlFor="id_username">Correo institucional</label>
+            <label>Correo institucional</label>
             <input
-              id="id_username"
-              type="text"
-              placeholder="usuario@unidadvictimas.gov.co"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              required
               autoComplete="username"
             />
           </div>
 
           <div className="field">
-            <label htmlFor="id_password">Contraseña</label>
+            <label>Contraseña</label>
             <input
-              id="id_password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
               autoComplete="current-password"
             />
           </div>
 
-          <button type="submit" className="btn-primary" disabled={busy}>
+          <button className="btn-primary" type="submit" disabled={busy}>
             {busy ? "Ingresando..." : "Iniciar sesión"}
           </button>
         </form>

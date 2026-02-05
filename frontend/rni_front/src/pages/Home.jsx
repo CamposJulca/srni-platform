@@ -7,8 +7,10 @@ export default function Home({
   onGoHome,
   onGoDashboard,
   onGoSql,
+  onGoNLQuery,
   onGoColaboradores,
   onGoAutomatizacion,
+  onGoSinapsis,
   onLogoutApp,
 }) {
   const [username, setUsername] = useState("Usuario");
@@ -40,8 +42,10 @@ export default function Home({
       onGoHome={onGoHome}
       onGoDashboard={onGoDashboard}
       onGoSql={onGoSql}
+      onGoNLQuery={onGoNLQuery}
       onGoColaboradores={onGoColaboradores}
       onGoAutomatizacion={onGoAutomatizacion}
+      onGoSinapsis={onGoSinapsis}
     >
       <div className="home-container">
         <div className="home-header">
@@ -51,11 +55,16 @@ export default function Home({
 
         <div className="cards-grid">
           <div className="card">
-            <h3>Query SQL</h3>
-            <p>Consulta controlada de información en PostgreSQL.</p>
-            <button className="card-link" onClick={onGoSql}>
-              Ingresar
-            </button>
+            <h3>Consultas</h3>
+            <p>Ejecuta consultas SQL manuales o consultas inteligentes (NLQuery).</p>
+            <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+              <button className="card-link" onClick={onGoSql}>
+                Query SQL
+              </button>
+              <button className="card-link" onClick={onGoNLQuery}>
+                NLQuery
+              </button>
+            </div>
           </div>
 
           <div className="card">
@@ -79,6 +88,14 @@ export default function Home({
             <p>Firma masiva de documentos Word, generación de PDFs y descarga en bloque.</p>
             <button className="card-link" onClick={onGoAutomatizacion}>
               Abrir módulo
+            </button>
+          </div>
+
+          <div className="card">
+            <h3>Sinapsis</h3>
+            <p>Dashboard analítico del portafolio de proyectos tecnológicos.</p>
+            <button className="card-link" onClick={onGoSinapsis}>
+              Abrir Sinapsis
             </button>
           </div>
         </div>
