@@ -1,7 +1,8 @@
-version: "3.9"
-
 services:
 
+  # ===============================
+  # PostgreSQL
+  # ===============================
   postgres:
     image: postgres:16
     container_name: srni_postgres
@@ -15,30 +16,40 @@ services:
     networks:
       - srni_net
 
+  # ===============================
+  # Django Backend (interno)
+  # ===============================
   backend:
     build: ./backend/rni_web
     container_name: rni_backend
+    restart: unless-stopped
     env_file:
       - .env
     depends_on:
       - postgres
     volumes:
       - ./backend/rni_web/src:/app
-      - ./backend/rni_web/data:/data
-    ports:
-      - "8085:8000"
+    expose:
+      - "8000"
     networks:
       - srni_net
 
+  # ===============================
+  # React Frontend (nginx)
+  # ===============================
   frontend:
-    build: ./frontend/rni_front
+    build:
+      context: ./frontend/rni_front
+      args:
+        VITE_API_URL: https://srni-backend.ngrok.io
     container_name: rni_frontend
+    ports:
+      - "8085:80"
     depends_on:
       - backend
-    ports:
-      - "5173:5173"
     networks:
       - srni_net
+
 
 networks:
   srni_net:

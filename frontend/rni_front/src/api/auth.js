@@ -1,3 +1,5 @@
+const API = import.meta.env.VITE_API_URL;
+
 // ===============================
 // Cookies helpers
 // ===============================
@@ -12,15 +14,20 @@ export function getCookie(name) {
 // CSRF
 // ===============================
 export async function getCSRF() {
-  await fetch("/api/auth/csrf/", {
+  const res = await fetch(`${API}/api/auth/csrf/`, {
     method: "GET",
     credentials: "include",
   });
+
+  if (!res.ok) {
+    throw new Error("No se pudo obtener CSRF");
+  }
 
   const token = getCookie("csrftoken");
   if (!token) {
     throw new Error("CSRF token no encontrado");
   }
+
   return token;
 }
 
@@ -28,46 +35,49 @@ export async function getCSRF() {
 // LOGIN
 // ===============================
 export async function login(username, password) {
-  // 1️⃣ CSRF antes del login
-  let csrf = await getCSRF();
+  const csrf = await getCSRF();
 
-  const res = await fetch("/api/auth/login/", {
+  const res = await fetch(`${API}/api/auth/login/`, {
     method: "POST",
     credentials: "include",
     headers: {
       "Content-Type": "application/json",
       "X-CSRFToken": csrf,
     },
-    body: JSON.stringify({
-      username,
-      password,
-    }),
+    body: JSON.stringify({ username, password }),
   });
+
+  if (!res.ok) {
+    throw new Error("Error HTTP en login");
+  }
 
   const payload = await res.json();
 
-  if (!res.ok || !payload.ok) {
-    throw new Error("Usuario o contraseña incorrectos");
+  if (!payload.ok) {
+    throw new Error(payload?.error?.message || "Credenciales inválidas");
   }
 
-  // 2️⃣ CSRF rota después del login → refrescamos
-  await getCSRF();
+  await getCSRF(); // refresca token
 
-  return payload.data; // { authenticated: true, id, username, email }
+  return payload.data;
 }
 
 // ===============================
-// ME (validar sesión)
+// ME
 // ===============================
 export async function me() {
-  const res = await fetch("/api/auth/me/", {
+  const res = await fetch(`${API}/api/auth/me/`, {
     method: "GET",
     credentials: "include",
   });
 
+  if (!res.ok) {
+    throw new Error("No autenticado");
+  }
+
   const payload = await res.json();
 
-  if (!res.ok || !payload.ok) {
+  if (!payload.ok) {
     throw new Error("No autenticado");
   }
 
@@ -80,7 +90,7 @@ export async function me() {
 export async function logout() {
   const csrf = await getCSRF();
 
-  const res = await fetch("/api/auth/logout/", {
+  const res = await fetch(`${API}/api/auth/logout/`, {
     method: "POST",
     credentials: "include",
     headers: {
@@ -90,9 +100,13 @@ export async function logout() {
     body: JSON.stringify({}),
   });
 
+  if (!res.ok) {
+    throw new Error("Error HTTP en logout");
+  }
+
   const payload = await res.json();
 
-  if (!res.ok || !payload.ok) {
+  if (!payload.ok) {
     throw new Error("Error al cerrar sesión");
   }
 
