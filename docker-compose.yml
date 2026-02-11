@@ -1,15 +1,32 @@
+version: "3.9"
 
 services:
+
+  postgres:
+    image: postgres:16
+    container_name: srni_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: srni_db
+      POSTGRES_USER: srni_user
+      POSTGRES_PASSWORD: srni_pass
+    volumes:
+      - srni_pgdata:/var/lib/postgresql/data
+    networks:
+      - srni_net
+
   backend:
     build: ./backend/rni_web
     container_name: rni_backend
     env_file:
       - .env
+    depends_on:
+      - postgres
     volumes:
       - ./backend/rni_web/src:/app
       - ./backend/rni_web/data:/data
     ports:
-      - "8000:8000"
+      - "8085:8000"
     networks:
       - srni_net
 
@@ -26,3 +43,6 @@ services:
 networks:
   srni_net:
     driver: bridge
+
+volumes:
+  srni_pgdata:

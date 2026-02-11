@@ -1,7 +1,0 @@
-services:
-  rni_front:
-    build: .
-    container_name: rni_front
-    ports:
-      - "5173:80"
-    restart: unless-stopped

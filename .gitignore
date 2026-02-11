@@ -25,3 +25,4 @@ infra/elastic/data/
 frontend/rni_front/.vite/
 
 .venv/
+cookies.txt
