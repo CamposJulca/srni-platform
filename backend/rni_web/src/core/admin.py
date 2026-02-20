@@ -15,5 +15,4 @@ class ContratoAdmin(admin.ModelAdmin):
 
 @admin.register(ColaboradorContrato)
 class ColaboradorContratoAdmin(admin.ModelAdmin):
-    list_display = ("colaborador", "contrato", "creado_en")
-    search_fields = ("colaborador__nombres", "contrato__numero")
+    list_display = ("id", "colaborador", "contrato", "estado", "fecha_inicio", "fecha_fin", "created_at")
